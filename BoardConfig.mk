@@ -21,6 +21,8 @@
 # definition file).
 #
 
+ALLOW_MISSING_DEPENDENCIES := true
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := msm8909
 TARGET_NO_BOOTLOADER := true
@@ -37,12 +39,15 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := generic
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 user_debug=31 earlyprintk androidboot.selinux=permissive
 BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET     := 0x01000000
-TARGET_PREBUILT_KERNEL := device/kido/sub_v8/zImage-dtb
+#TARGET_PREBUILT_KERNEL := device/kido/k2/zImage-dtb
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_CONFIG := lineageos_kiic_defconfig
+TARGET_KERNEL_SOURCE := kernel/kido/msm8909
 
 # Partitions
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -60,16 +65,24 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_THEME := watch_mdpi
 # RECOVERY_GRAPHICS_FORCE_SINGLE_BUFFER := true
 RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_8888"
+#TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_8888"
 # try fix screen issue
-RECOVERY_GRAPHICS_USE_LINELENGTH :=true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TW_MAX_BRIGHTNESS := 255
-TW_DEFAULT_BRIGHTNESS := 210
-# TW_EXTRA_LANGUAGES := true   # reduce size
-# TW_DEFAULT_LANGUAGE := zh_CN
+TW_MAX_BRIGHTNESS := 40
+TW_DEFAULT_BRIGHTNESS := 30
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := zh_CN
 # TW_INCLUDE_CRYPTO := true
 TW_IGNORE_MISC_WIPE_DATA := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_RECOVERY_FORCE_PIXEL_FORMAT := "RGB_8888"
+# try fix screen issue
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_NO_EXFAT := true
+TW_NO_USB_STORAGE := true
+
+#adbd insecure
+BOARD_ALWAYS_INSECURE := true
